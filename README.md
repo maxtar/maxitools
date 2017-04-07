@@ -13,7 +13,7 @@ Now available the following hash algorithms:
 ### How to use
 `checksum -f <path to file> [-algo ]`
 
-Arguments order does not matter.
+Arguments order doesn't matter.
 
 For example:
 
