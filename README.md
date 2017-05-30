@@ -29,3 +29,7 @@ Tool created for the linux time purposes - calculate program executing time.
 
 ---
 todo: echo webserver
+
+todo: client for post
+
+todo: HTTP POST any size files
