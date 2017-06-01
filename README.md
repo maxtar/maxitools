@@ -28,8 +28,9 @@ Tool created for the linux time purposes - calculate program executing time.
 `wintime <command to run>`
 
 ---
-todo: echo webserver
+## stubwebserver
+Stub server for receieve any request and return parameters to output response.
 
+---
 todo: client for post
-
 todo: HTTP POST any size files
