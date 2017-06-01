@@ -18,11 +18,11 @@ Arguments order doesn't matter.
 
 For example:
 
-`cheksum -algo sha256 -f d:\usr\tmp.xml`
+`checksum -algo sha256 -f d:\usr\tmp.xml`
 
 ---
 ## wintime
-Tool created for the linux time purposes - calculate program executing time.
+Tool created for the linux "time" purposes - calculate program executing time.
 
 ### How to use
 `wintime <command to run>`
@@ -30,6 +30,9 @@ Tool created for the linux time purposes - calculate program executing time.
 ---
 ## stubwebserver
 Stub server for receieve any request and return parameters to output response.
+
+### Command line arguments
+* **p** - server port
 
 ---
 todo: client for post
