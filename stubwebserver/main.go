@@ -13,11 +13,11 @@ var (
 	port        = flag.String("p", "8080", "Listening port")
 	postFileDir = flag.String("pfd", ".", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
 	logdir      = flag.String("logdir", "none", "Directory for saving requests history. If 'none' - requests will not be saved.")
-	logger      *log.Logger
+	logger      = log.New(os.Stdout, "", log.LstdFlags)
+	logfile     *log.Logger
 )
 
 func main() {
-	logger = log.New(os.Stdout, "", log.LstdFlags)
 	flag.Parse()
 	//Check that all flags are correct
 	if flag.NArg() > 0 {
