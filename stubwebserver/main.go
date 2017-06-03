@@ -70,4 +70,7 @@ func printOut(srcbuf *bytes.Buffer) {
 	srcbuf.WriteTo(buf)
 	buf.WriteString("---------- End request ----------\n")
 	stdlogger.Println(buf)
+	if filelogger != nil {
+		filelogger.Println(buf)
+	}
 }
