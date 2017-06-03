@@ -3,7 +3,7 @@ Different tools for different IT tasks
 
 ---
 ## checksum
-Tool for calculating different hash.
+Tool for calculating different hashes.
 
 Now available the following hash algorithms:
 * md5 (by default)
