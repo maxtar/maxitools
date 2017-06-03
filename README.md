@@ -32,7 +32,10 @@ Tool created for the linux "time" purposes - calculate program executing time.
 Stub server for receieve any request and return parameters to output response.
 
 ### Command line arguments
-* **p** - server port
+* **p** - server port. By default: 8080.
+* **logdir** - directory where will be saved log-file with requests. If *none* (default value) requests will not be saved.
+* **stdout** - enable print requests to standart output stream. *true* by default.
+* **pfd** - directory where will be saved files from POST multidata-form requests. If *none* (default value) files will not be saved.
 
 ---
 todo: client for post

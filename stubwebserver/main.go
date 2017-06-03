@@ -12,8 +12,9 @@ import (
 
 var (
 	port        = flag.String("p", "8080", "Listening port")
-	postFileDir = flag.String("pfd", ".", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
+	postFileDir = flag.String("pfd", "none", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
 	logdir      = flag.String("logdir", "none", "Directory for saving requests history. If 'none' - requests will not be saved.")
+	stdout      = flag.Bool("stdout", true, "Enable print requests to standart output.")
 	stdlogger   = log.New(os.Stdout, "", log.LstdFlags)
 	filelogger  *log.Logger
 )
@@ -65,11 +66,16 @@ func root(w http.ResponseWriter, r *http.Request) {
 }
 
 func printOut(srcbuf *bytes.Buffer) {
+	if filelogger == nil && *stdout == false {
+		return
+	}
 	buf := new(bytes.Buffer)
 	buf.WriteString("---------- Start request ----------\n")
 	srcbuf.WriteTo(buf)
 	buf.WriteString("---------- End request ----------\n")
-	stdlogger.Println(buf)
+	if *stdout == true {
+		stdlogger.Println(buf)
+	}
 	if filelogger != nil {
 		filelogger.Println(buf)
 	}
