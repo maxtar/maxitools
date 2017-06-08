@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -53,7 +54,9 @@ func main() {
 
 func root(w http.ResponseWriter, r *http.Request) {
 	buf := &bytes.Buffer{}
+	//Print method, url and protocol
 	fmt.Fprintf(buf, "%s %s %s\n", r.Method, r.RequestURI, r.Proto)
+	//Print headers
 	for k, v := range r.Header {
 		fmt.Fprintf(buf, "%s: ", k)
 		for _, value := range v {
@@ -61,6 +64,20 @@ func root(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprintln(buf)
 	}
+
+	//Print body if exists
+	body := r.Body
+	defer body.Close()
+	content, err := ioutil.ReadAll(body)
+	if err != nil {
+		buf.WriteString("Error getting body\n")
+	}
+	if len(content) != 0 {
+		//Split headers from body
+		fmt.Fprintf(buf, "\nBody:\n")
+		buf.Write(content)
+	}
+	//Send response
 	fmt.Fprint(w, buf)
 	printOut(buf)
 }
