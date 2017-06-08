@@ -89,7 +89,7 @@ func printOut(srcbuf *bytes.Buffer) {
 	buf := new(bytes.Buffer)
 	buf.WriteString("---------- Start request ----------\n")
 	srcbuf.WriteTo(buf)
-	buf.WriteString("---------- End request ----------\n")
+	buf.WriteString("\n---------- End request ----------\n")
 	if *stdout == true {
 		stdlogger.Println(buf)
 	}
