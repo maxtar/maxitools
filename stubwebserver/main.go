@@ -64,6 +64,30 @@ func root(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprintln(buf)
 	}
+	// Try parse and print data from form if exist
+	err := r.ParseForm()
+	if err != nil {
+		fmt.Fprintf(buf, "Error parse form: %v", err)
+	}
+	form := r.Form
+	if form != nil && len(form) > 0 {
+		fmt.Fprintf(buf, "\nForm data:\n")
+		for k, v := range form {
+			fmt.Fprintf(buf, "%s: ", k)
+			for _, value := range v {
+				buf.WriteString(value)
+			}
+			fmt.Fprintln(buf)
+		}
+	}
+	multipart := r.MultipartForm
+	if multipart != nil {
+		for filek := range multipart.File {
+			buf.WriteString("multipart: " + filek)
+		}
+	} else {
+		buf.WriteString("multipart is empty\n")
+	}
 
 	//Print body if exists
 	body := r.Body
@@ -76,6 +100,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(buf, "\nBody:\n")
 		buf.Write(content)
 	}
+
 	//Send response
 	fmt.Fprint(w, buf)
 	printOut(buf)
