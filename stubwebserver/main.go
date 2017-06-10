@@ -73,7 +73,6 @@ func root(w http.ResponseWriter, r *http.Request) {
 		buf.WriteString("Error getting body\n")
 	}
 	if len(content) != 0 {
-		//Split headers from body
 		fmt.Fprintf(buf, "\nBody:\n")
 		buf.Write(content)
 	}
@@ -82,6 +81,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 	printOut(buf)
 }
 
+// printOut function print output to standart output and/or file depends on command line arguments
 func printOut(srcbuf *bytes.Buffer) {
 	if filelogger == nil && *stdout == false {
 		return
