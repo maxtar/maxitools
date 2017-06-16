@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 var (
@@ -53,6 +54,7 @@ func main() {
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
+	startTime := time.Now()
 	buf := &bytes.Buffer{}
 	//Print method, url and protocol
 	fmt.Fprintf(buf, "%s %s %s\n", r.Method, r.RequestURI, r.Proto)
@@ -100,7 +102,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(buf, "\nBody:\n")
 		buf.Write(content)
 	}
-
+	buf.WriteString(fmt.Sprintf("Request processing time: %s", time.Since(startTime)))
 	//Send response
 	fmt.Fprint(w, buf)
 	printOut(buf)
