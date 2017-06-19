@@ -102,7 +102,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(buf, "\nBody:\n")
 		buf.Write(content)
 	}
-	buf.WriteString(fmt.Sprintf("Request processing time: %s", time.Since(startTime)))
+	buf.WriteString(fmt.Sprintf("\nRequest processing time: %s", time.Since(startTime)))
 	//Send response
 	fmt.Fprint(w, buf)
 	printOut(buf)
