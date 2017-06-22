@@ -37,6 +37,8 @@ Stub server for receieve any request and return parameters to output response.
 * **stdout** - enable print requests to standart output stream. *true* by default.
 * **pfd** - directory where will be saved files from POST multidata-form requests. If *none* (default value) files will not be saved.
 
+todo: add proxy mode
+
 ---
 todo: client for post
 
