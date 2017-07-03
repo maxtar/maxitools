@@ -29,7 +29,7 @@ Tool created for the linux "time" purposes - calculate program executing time.
 
 ---
 ## stubwebserver
-Stub server for receieve any request and return parameters to output response.
+Stub server receieve any request and return parameters to output response.
 
 ### Command line arguments
 * **p** - server port. By default: 8080.
@@ -37,7 +37,22 @@ Stub server for receieve any request and return parameters to output response.
 * **stdout** - enable print requests to standart output stream. *true* by default.
 * **pfd** - directory where will be saved files from POST multidata-form requests. If *none* (default value) files will not be saved.
 
+For example:
+
+`stubserver -p 8080 -logdir "../log" -stdout`
+
 todo: add proxy mode
+
+---
+## udpstubserver
+Server listen UDP port and write received packet to console.
+
+### Command line arguments
+* **p** - server port. By default: 8125.
+
+For example:
+
+`udpstubserver -p 8125`
 
 ---
 todo: client for post
