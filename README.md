@@ -43,3 +43,5 @@ todo: add proxy mode
 todo: client for post
 
 todo: HTTP POST any size files
+
+todo: add udpstup server
