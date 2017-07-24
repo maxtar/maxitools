@@ -3,24 +3,27 @@
 
 <body>
     <form action="http://localhost:8080" method="post">
-        Text field:<input type="text" name="text" /><br>
         <fieldset>
-            <legend>Checkboxes:</legend>
-            <input type="checkbox" name="checkbox1" value="check1" />checkbox1<br>
-            <input type="checkbox" name="checkbox2" value="check2" />checkbox2<br>
-        </fieldset>
-        <br>
-        <fieldset>
-            <legend>Radio buttons:</legend>
-            radio1:<input type="radio" name="radio" value="radio1" /><br>
-            radio2:<input type="radio" name="radio" value="radio2" /><br>
-        </fieldset>
-        <select name="select">
+            <legend>Different fields type:</legend>
+            Text field: <input type="text" name="text" /><br>
+            <fieldset>
+                <legend>Checkboxes:</legend>
+                <input type="checkbox" name="checkbox1" value="check1" />checkbox1<br>
+                <input type="checkbox" name="checkbox2" value="check2" />checkbox2<br>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Radio buttons:</legend>
+                <input type="radio" name="radio" value="radio1" />radio1<br>
+                <input type="radio" name="radio" value="radio2" />radio2<br>
+            </fieldset>
+            <select name="select">
             <option value="drop1">Drop1</option>
             <option value="drop2" selected>Drop2</option>
             <option value="drop3">Drop3</option>
-        </select><br>
-        <input type="submit" />
+            </select><br>
+            <input type="submit" />
+        </fieldset>
     </form>
     <br>
     <form action="http://localhost:8080" method="post" enctype="multipart/form-data">
