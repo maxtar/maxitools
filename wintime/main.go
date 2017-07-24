@@ -26,6 +26,7 @@ func main() {
 		fmt.Printf("Error executing command: %v", err)
 		os.Exit(1)
 	}*/
+	//todo fix russian encoding in windows
 	fmt.Printf("%s\n", cmdOut)
 	fmt.Printf("Time elapsed: %v", time.Since(start))
 }
