@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"net"
 	"os"
@@ -23,13 +22,13 @@ func main() {
 		panic(err)
 	}
 	defer listener.Close()
-	fmt.Printf("Server started and listen on port %s...\n", *port)
+	stdlogger.Printf("Server started and listen on port %s...\n", *port)
 
 	buf := make([]byte, 1024)
 	for {
 		n, addr, err := listener.ReadFromUDP(buf)
 		if err != nil {
-			fmt.Printf("Error receiving packet: %v\n", err)
+			stdlogger.Printf("Error receiving packet: %v\n", err)
 			continue
 		}
 		stdlogger.Printf("Received: %q from %s\n", string(buf[0:n]), addr)
