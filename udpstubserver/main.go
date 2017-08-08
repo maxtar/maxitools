@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/signal"
 )
 
 var (
@@ -24,13 +25,22 @@ func main() {
 	defer listener.Close()
 	stdlogger.Printf("Server started and listen on port %s...\n", *port)
 
-	buf := make([]byte, 1024)
-	for {
-		n, addr, err := listener.ReadFromUDP(buf)
-		if err != nil {
-			stdlogger.Printf("Error receiving packet: %v\n", err)
-			continue
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+
+	go func() {
+		buf := make([]byte, 1024)
+		for {
+			n, addr, err := listener.ReadFromUDP(buf)
+			if err != nil {
+				stdlogger.Printf("Error receiving packet: %v\n", err)
+				continue
+			}
+			stdlogger.Printf("Received: %q from %s\n", string(buf[0:n]), addr)
 		}
-		stdlogger.Printf("Received: %q from %s\n", string(buf[0:n]), addr)
-	}
+	}()
+
+	<-c
+	stdlogger.Println("Received interrupt signal. Exiting...")
+	listener.Close()
 }
