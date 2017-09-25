@@ -52,8 +52,6 @@ For example:
 
 `stubserver -p 8080 -logdir "../log" -stdout`
 
-todo: add proxy mode
-
 ---
 
 ## udpstubserver
@@ -67,8 +65,3 @@ Server listen UDP port and write received packet to console.
 For example:
 
 `udpstubserver -p 8125`
-
----
-todo: client for post
-
-todo: HTTP POST any size files
