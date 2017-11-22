@@ -29,7 +29,7 @@ func main() {
 	signal.Notify(c, os.Interrupt)
 
 	go func() {
-		buf := make([]byte, 1024)
+		buf := make([]byte, 10240)
 		for {
 			n, addr, err := listener.ReadFromUDP(buf)
 			if err != nil {
