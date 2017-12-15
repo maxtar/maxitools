@@ -14,6 +14,11 @@ var (
 )
 
 func main() {
+	flag.Parse()
+	if flag.NArg() > 0 {
+		flag.PrintDefaults()
+		return
+	}
 	addr, err := net.ResolveUDPAddr("udp", ":"+*port)
 	if err != nil {
 		panic(err)
