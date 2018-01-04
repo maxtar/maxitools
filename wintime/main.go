@@ -10,7 +10,7 @@ import (
 func main() {
 	if len(os.Args) == 1 {
 		fmt.Println("No argument was provided")
-		os.Exit(0)
+		os.Exit(1)
 	}
 	var cmd *exec.Cmd
 	_, err := exec.LookPath(os.Args[1])
