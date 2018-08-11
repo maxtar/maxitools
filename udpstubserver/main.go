@@ -47,5 +47,4 @@ func main() {
 
 	<-c
 	stdlogger.Println("Received interrupt signal. Exiting...")
-	listener.Close()
 }
