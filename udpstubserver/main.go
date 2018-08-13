@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 	defer listener.Close()
-	stdlogger.Printf("Server started and listen on port %s...\n", *port)
+	stdlogger.Printf("Server started and listen on port %s...", *port)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -38,10 +38,10 @@ func main() {
 		for {
 			n, addr, err := listener.ReadFromUDP(buf)
 			if err != nil {
-				stdlogger.Printf("Error receiving packet: %v\n", err)
+				stdlogger.Printf("Error receiving packet: %v", err)
 				continue
 			}
-			stdlogger.Printf("Received: %q from %s\n", string(buf[0:n]), addr)
+			stdlogger.Printf("Received: %q from %s", string(buf[0:n]), addr)
 		}
 	}()
 
