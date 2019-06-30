@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -12,15 +13,10 @@ import (
 	"time"
 )
 
-var (
-	postFileDir = flag.String("pfd", "none", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
-	stdout      = flag.Bool("stdout", true, "Enable print requests to standart output.")
-	stdlogger   = log.New(os.Stdout, "", log.LstdFlags)
-	filelogger  *log.Logger
-)
-
 func main() {
 	port := flag.String("p", "8080", "Listening port")
+	// postFileDir = flag.String("pfd", "none", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
+	stdout := flag.Bool("stdout", true, "Enable print requests to standart output.")
 	logdir := flag.String("logdir", "", `Directory for saving requests history. If "" - requests will not be saved.`)
 	flag.Parse()
 	//Check that all flags are correct
@@ -29,6 +25,7 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(0)
 	}
+	var wr io.Writer
 	if *logdir != "" {
 		var logfile *os.File
 		fi, err := os.Stat(*logdir)
@@ -42,10 +39,20 @@ func main() {
 		if err != nil {
 			log.Fatalf("Error creating log file: %v", err)
 		}
-		filelogger = log.New(logfile, "", log.LstdFlags)
 		defer logfile.Close()
+		if *stdout {
+			wr = io.MultiWriter(os.Stdout, logfile)
+		} else {
+			wr = logfile
+		}
+	} else {
+		if *stdout {
+			wr = os.Stdout
+		} else {
+			wr = ioutil.Discard
+		}
 	}
-
+	log.SetOutput(wr)
 	http.HandleFunc("/", root)
 	fmt.Printf("Server started and listen %s port\n", *port)
 	if err := http.ListenAndServe("localhost:"+*port, nil); err != nil {
@@ -110,17 +117,9 @@ func root(w http.ResponseWriter, r *http.Request) {
 
 // printOut function print output to standart output and/or file depends on command line arguments
 func printOut(srcbuf *bytes.Buffer) {
-	if filelogger == nil && *stdout == false {
-		return
-	}
 	buf := new(bytes.Buffer)
 	buf.WriteString("---------- Start request ----------\n")
 	srcbuf.WriteTo(buf)
 	buf.WriteString("\n---------- End request ----------\n")
-	if *stdout == true {
-		stdlogger.Println(buf)
-	}
-	if filelogger != nil {
-		filelogger.Println(buf)
-	}
+	log.Println(buf)
 }
