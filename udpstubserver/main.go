@@ -8,12 +8,9 @@ import (
 	"os/signal"
 )
 
-var (
-	port      = flag.String("p", "8125", "Listening port")
-	stdlogger = log.New(os.Stdout, "", log.LstdFlags)
-)
-
 func main() {
+	port := flag.String("p", "8125", "Listening port")
+	stdlogger := log.New(os.Stdout, "", log.LstdFlags)
 	flag.Parse()
 	if flag.NArg() > 0 {
 		flag.PrintDefaults()
