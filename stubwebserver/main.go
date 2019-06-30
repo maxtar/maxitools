@@ -13,15 +13,15 @@ import (
 )
 
 var (
-	port        = flag.String("p", "8080", "Listening port")
 	postFileDir = flag.String("pfd", "none", "Directory for saving files from POST multi-part requests. If 'none' - files will not be saved.")
-	logdir      = flag.String("logdir", "none", "Directory for saving requests history. If 'none' - requests will not be saved.")
 	stdout      = flag.Bool("stdout", true, "Enable print requests to standart output.")
 	stdlogger   = log.New(os.Stdout, "", log.LstdFlags)
 	filelogger  *log.Logger
 )
 
 func main() {
+	port := flag.String("p", "8080", "Listening port")
+	logdir := flag.String("logdir", "", `Directory for saving requests history. If "" - requests will not be saved.`)
 	flag.Parse()
 	//Check that all flags are correct
 	if flag.NArg() > 0 {
@@ -29,11 +29,11 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(0)
 	}
-	var logfile *os.File
-	if *logdir != "none" {
+	if *logdir != "" {
+		var logfile *os.File
 		fi, err := os.Stat(*logdir)
 		if err != nil {
-			log.Fatalf("%v", err)
+			log.Fatalf("Incorrect log directory: %v", err)
 		}
 		if !fi.IsDir() {
 			log.Fatalf("%q is not directory.", *logdir)
