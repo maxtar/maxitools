@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/exec"
@@ -12,21 +13,24 @@ func main() {
 		fmt.Println("No argument was provided")
 		os.Exit(1)
 	}
-	var cmd *exec.Cmd
-	_, err := exec.LookPath(os.Args[1])
+	cmd := exec.Command(os.Args[1], os.Args[2:]...)
+	cmdOut, err := cmd.StdoutPipe()
 	if err != nil {
-		cmd = exec.Command("cmd.exe", "/C")
-		cmd.Args = append(cmd.Args, os.Args[1:]...)
-	} else {
-		cmd = exec.Command(os.Args[1], os.Args[2:]...)
+		fmt.Printf("Error get output pipe %q", err)
+		os.Exit(1)
 	}
 	start := time.Now()
-	cmdOut, _ := cmd.CombinedOutput()
-	/*if err != nil {
-		fmt.Printf("Error executing command: %v", err)
+	if err = cmd.Start(); err != nil {
+		fmt.Printf("Error run command: %q", err)
 		os.Exit(1)
-	}*/
+	}
+	sc := bufio.NewScanner(cmdOut)
+	for sc.Scan() {
+		fmt.Println(sc.Text())
+	}
+	if err = cmd.Wait(); err != nil {
+		fmt.Printf("Error wait command: %q", err)
+	}
 	//todo fix russian encoding in windows
-	fmt.Printf("%s\n", cmdOut)
 	fmt.Printf("Time elapsed: %v", time.Since(start))
 }
