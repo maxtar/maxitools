@@ -33,4 +33,5 @@ func main() {
 	}
 	//todo fix russian encoding in windows
 	fmt.Printf("Time elapsed: %v", time.Since(start))
+	//todo add ctrl+c handler and print time anycase
 }
