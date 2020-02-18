@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// BUG(maxtar) fix russian encoding in windows
 func main() {
 	if len(os.Args) == 1 {
 		fmt.Println("No argument was provided")
@@ -31,7 +32,7 @@ func main() {
 	if err = cmd.Wait(); err != nil {
 		fmt.Printf("Error wait command: %q", err)
 	}
-	//todo fix russian encoding in windows
+
 	fmt.Printf("Time elapsed: %v", time.Since(start))
 	//todo add ctrl+c handler and print time anycase
 }
