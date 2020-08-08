@@ -10,7 +10,7 @@ import (
 
 func main() {
 	port := flag.String("p", "8125", "Listening port")
-	stdlogger := log.New(os.Stdout, "", log.LstdFlags)
+	stdLogger := log.New(os.Stdout, "", log.LstdFlags|log.Lmsgprefix)
 	flag.Parse()
 	if flag.NArg() > 0 {
 		flag.PrintDefaults()
@@ -25,7 +25,7 @@ func main() {
 		panic(err)
 	}
 	defer listener.Close()
-	stdlogger.Printf("Server started and listen on port %s...", *port)
+	stdLogger.Printf("Server started and listen on port %s...", *port)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -35,13 +35,13 @@ func main() {
 		for {
 			n, addr, err := listener.ReadFromUDP(buf)
 			if err != nil {
-				stdlogger.Printf("Error receiving packet: %v", err)
+				stdLogger.Printf("Error receiving packet: %v", err)
 				continue
 			}
-			stdlogger.Printf("Received: %q from %s", string(buf[0:n]), addr)
+			stdLogger.Printf("Received: %q from %s", string(buf[0:n]), addr)
 		}
 	}()
 
 	<-c
-	stdlogger.Println("Received interrupt signal. Exiting...")
+	stdLogger.Println("Received interrupt signal. Exiting...")
 }
