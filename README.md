@@ -1,3 +1,5 @@
+[![Go Reference](https://pkg.go.dev/badge/codeberg.org/maxtar/maxitools.svg)](https://pkg.go.dev/codeberg.org/maxtar/maxitools)
+
 # maxitools
 
 Different tools for different IT tasks
