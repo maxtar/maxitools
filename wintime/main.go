@@ -34,5 +34,5 @@ func main() {
 	}
 
 	fmt.Printf("Time elapsed: %v", time.Since(start))
-	//todo add ctrl+c handler and print time anycase
+	//todo add ctrl+c handler and print time in anycase
 }
